@@ -1,0 +1,12 @@
+.text {
+    border: 1px solid black;
+    resize: none;
+    padding: 5px;
+}
+
+#container{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: center;
+}
