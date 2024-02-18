@@ -2,7 +2,7 @@ import Textbox from "./textbox.jsx";
 import AddTextboxBtn from "./addTextboxBtn.jsx";
 import TextboxContainer from "./TextboxContainer.jsx";
 import {useState} from "react";
-import Header from "./header.jsx";
+import Header from "./Header.jsx";
 function App() {
     let [clicked, setClick]= useState(false);
     let [boxes, setBox] = useState(1);
