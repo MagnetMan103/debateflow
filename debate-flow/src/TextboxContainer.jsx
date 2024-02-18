@@ -1,6 +1,6 @@
 
 
-function textboxContainer() {
+function TextboxContainer() {
     const styles = {
         // make a flexbox container for the textboxes
         display: "flex",
@@ -17,4 +17,4 @@ function textboxContainer() {
       );
     }
 
-export default textboxContainer;
+export default TextboxContainer;
