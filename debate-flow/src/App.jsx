@@ -1,6 +1,6 @@
 import Textbox from "./textbox.jsx";
 import AddTextboxBtn from "./addTextboxBtn.jsx";
-import TextboxContainer from "./textboxContainer.jsx";
+import TextboxContainer from "./TextboxContainer.jsx";
 import {useState} from "react";
 import Header from "./header.jsx";
 function App() {
