@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import {Suspense} from "react";
 import TopNav from "~/app/_components/TopNav";
 
 export const metadata: Metadata = {
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
       <TopNav />
+      <Suspense>
       {children}
+      </Suspense>
       </body>
     </html>
   );

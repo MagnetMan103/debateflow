@@ -1,5 +1,4 @@
 "use client";
-import { Suspense } from 'react'
 import {useSearchParams} from "next/navigation";
 import {getFlowStructure} from "~/app/_functions/getFlowStructure";
 
@@ -10,7 +9,6 @@ export default function FlowPage() {
     const flowStructure = getFlowStructure(title);
     // return the number of speeches text boxes, titled with the speech names
     return (
-        <Suspense fallback={<div>Loading...</div>}>
         <div>
             <div className={"flex flex-row"}>
         {title && <p className={"text-white ml-6"}
@@ -38,6 +36,5 @@ export default function FlowPage() {
             </div>
         </div>
         </div>
-        </Suspense>
     );
 }
