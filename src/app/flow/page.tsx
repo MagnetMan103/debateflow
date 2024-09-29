@@ -2,7 +2,6 @@
 import {useSearchParams} from "next/navigation";
 import {getFlowStructure} from "~/app/_functions/getFlowStructure";
 import {getStringUpToCharacter} from "~/app/_functions/arrayOperators";
-import {defaultFlowStructure} from "~/app/_functions/getFlowStructure";
 import {type ChangeEvent, useEffect, useState} from "react";
 
 type FlowStructure = {
@@ -12,12 +11,9 @@ type FlowStructure = {
     sides: string[],
 }
 
-type FlowProps = {
-    id: string,
-}
 export default function FlowPage() {
     const searchParams = useSearchParams();
-    const [flowStructure, setFlowStructure] = useState<FlowStructure>(
+    const [flowStructure] = useState<FlowStructure>(
         getFlowStructure(getStringUpToCharacter(searchParams.get('title')!, "_")));
     const [speeches, setSpeeches] = useState<string[]>(
         new Array(flowStructure.speeches).fill("")
@@ -25,10 +21,9 @@ export default function FlowPage() {
     useEffect(() => {
         const savedSpeeches = localStorage.getItem(`title=${searchParams.get('title')!}`);
         if (savedSpeeches) {
-            console.log(savedSpeeches);
-            setSpeeches(JSON.parse(savedSpeeches));
+            setSpeeches(JSON.parse(savedSpeeches) as string[]);
         }
-    }, []);
+    }, [searchParams]);
     const title = searchParams.get('title');
     if (!title) { return; }
 

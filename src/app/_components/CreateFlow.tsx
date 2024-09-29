@@ -14,7 +14,6 @@ export default function CreateFlow(props: flowProps) {
             localStorage.setItem("count", (parseInt(count) + 1).toString());
             count = (parseInt(count) + 1).toString();
         } else {
-            console.log('fired')
             localStorage.setItem("count", "1");
             count = "1";
 
