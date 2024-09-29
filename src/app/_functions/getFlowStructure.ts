@@ -26,3 +26,10 @@ export function getFlowStructure(type: string) {
         }
     }
 }
+
+export const defaultFlowStructure = {
+    "speeches" : 4,
+    "speechNames" : ["1AC", "CX", "1NC", "2NR"],
+    "times" : [8, 3, 8, 5],
+    "sides" : ["Aff", "Neg"],
+}

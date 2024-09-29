@@ -1,13 +1,44 @@
 "use client";
 import {useSearchParams} from "next/navigation";
 import {getFlowStructure} from "~/app/_functions/getFlowStructure";
+import {getStringUpToCharacter} from "~/app/_functions/arrayOperators";
+import {defaultFlowStructure} from "~/app/_functions/getFlowStructure";
+import {type ChangeEvent, useEffect, useState} from "react";
 
+type FlowStructure = {
+    speeches: number,
+    speechNames: string[],
+    times: number[],
+    sides: string[],
+}
+
+type FlowProps = {
+    id: string,
+}
 export default function FlowPage() {
     const searchParams = useSearchParams();
+    const [flowStructure, setFlowStructure] = useState<FlowStructure>(
+        getFlowStructure(getStringUpToCharacter(searchParams.get('title')!, "_")));
+    const [speeches, setSpeeches] = useState<string[]>(
+        new Array(flowStructure.speeches).fill("")
+    );
+    useEffect(() => {
+        const savedSpeeches = localStorage.getItem(`title=${searchParams.get('title')!}`);
+        if (savedSpeeches) {
+            console.log(savedSpeeches);
+            setSpeeches(JSON.parse(savedSpeeches));
+        }
+    }, []);
     const title = searchParams.get('title');
-    if (!title) { return null; }
-    const flowStructure = getFlowStructure(title);
-    // return the number of speeches text boxes, titled with the speech names
+    if (!title) { return; }
+
+    const onBlur = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const value = event.target.value;
+        const index = parseInt(event.target.id);
+        speeches[index] = value;
+        localStorage.setItem(`title=${title}`, JSON.stringify(speeches));
+
+    }
     return (
         <div>
             <div className={"flex flex-row"}>
@@ -29,7 +60,10 @@ export default function FlowPage() {
                 return (
                     <div key={index}>
                         <p className={"text-white text-center select-none"}>{speechName}</p>
-                        <textarea className={style} />
+                        <textarea className={style}
+                        defaultValue={speeches[index]}
+                        onBlur={onBlur}
+                        id={index.toString()}/>
                     </div>
                 );
             })}

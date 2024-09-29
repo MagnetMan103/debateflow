@@ -9,7 +9,17 @@ export default function CreateFlow(props: flowProps) {
 
     const onClick = () => {
         // when clicked, route to /flow
-        router.push(`/flow?title=${props.title}`)
+        let count = localStorage.getItem("count");
+        if (count) {
+            localStorage.setItem("count", (parseInt(count) + 1).toString());
+            count = (parseInt(count) + 1).toString();
+        } else {
+            console.log('fired')
+            localStorage.setItem("count", "1");
+            count = "1";
+
+        }
+        router.push(`/flow?title=${props.title}_${count}`);
 
     }
     return (
