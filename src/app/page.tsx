@@ -34,7 +34,7 @@ export default function HomePage() {
                         <FlowPreview title={item}/>
                     </div>
                 );
-          })};
+          })}
           </div>
           </div>
 
