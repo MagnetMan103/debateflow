@@ -18,6 +18,8 @@ type speechStructure = {
 
 // the idea is to change set speeches to switch pro/con
 // need a new json object with each side
+// TODO: set maxlength to textarea components
+// TODO: add a delete button
 
 export default function FlowPage() {
     const searchParams = useSearchParams();
@@ -41,6 +43,7 @@ export default function FlowPage() {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "ArrowDown" && event.shiftKey) {
                 setSide((side === "Aff" ? "Neg" : "Aff"));
+                localStorage.setItem(`title=${searchParams.get('title')}`, JSON.stringify(speeches));
             }
         };
 
@@ -48,12 +51,16 @@ export default function FlowPage() {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [side]);
+    }, [searchParams, side, speeches]);
 
     const title = searchParams.get('title');
     if (!title) { return; }
 
-    const onBlur = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const onBlur = () => {
+        localStorage.setItem(`title=${title}`, JSON.stringify(speeches));
+    }
+
+    const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         const index = parseInt(event.target.id);
         if (currentSide() === flowStructure.sides[0]) {
@@ -61,8 +68,6 @@ export default function FlowPage() {
         } else {
             speeches.Neg[index] = value;
         }
-        localStorage.setItem(`title=${title}`, JSON.stringify(speeches));
-
     }
 
     const changeSide = () => {
@@ -101,6 +106,7 @@ export default function FlowPage() {
                         <textarea className={style}
                         defaultValue={speeches.Aff[index]}
                         onBlur={onBlur}
+                        onChange={onChange}
                         id={index.toString()}/>
                     </div>
                 );
@@ -120,6 +126,7 @@ export default function FlowPage() {
                             <textarea className={style}
                             defaultValue={speeches.Neg[index]}
                             onBlur={onBlur}
+                            onChange={onChange}
                             id={index.toString()}/>
                         </div>
                     );
