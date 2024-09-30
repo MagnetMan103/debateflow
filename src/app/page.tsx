@@ -24,8 +24,8 @@ export default function HomePage() {
               <CreateFlow title={"Lincoln Douglas"}/>
               <CreateFlow title={"Public Forum"}/>
           </div>
-          <p className={"text-2xl font-normal text-gray-200 p-4"}>
-              Saved flows</p>
+          {items.length !== 0 && <p className={"text-2xl font-normal text-gray-200 p-4"}>
+              Saved flows</p>}
           <div className={"flex items-center justify-center w-screen"}>
           <div className={"grid grid-cols-5 w-[calc(110vh)]"}>
           {items.map((item, index) => {
