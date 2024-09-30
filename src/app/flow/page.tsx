@@ -11,40 +11,83 @@ type FlowStructure = {
     sides: string[],
 }
 
+type speechStructure = {
+    Aff: string[],
+    Neg: string[],
+}
+
+// the idea is to change set speeches to switch pro/con
+// need a new json object with each side
+
 export default function FlowPage() {
     const searchParams = useSearchParams();
     const [flowStructure] = useState<FlowStructure>(
         getFlowStructure(getStringUpToCharacter(searchParams.get('title')!, "_")));
-    const [speeches, setSpeeches] = useState<string[]>(
-        new Array(flowStructure.speeches).fill("")
+    const [speeches, setSpeeches] = useState<speechStructure>(
+        {Aff: new Array<string>(flowStructure.speeches).fill(""),
+            Neg: new Array<string>(flowStructure.speeches).fill("")}
     );
+    const [side, setSide] = useState<string>("Aff");
+
     useEffect(() => {
         const savedSpeeches = localStorage.getItem(`title=${searchParams.get('title')!}`);
         if (savedSpeeches) {
-            setSpeeches(JSON.parse(savedSpeeches) as string[]);
+            const loadedSpeech = JSON.parse(savedSpeeches) as speechStructure;
+            setSpeeches(loadedSpeech);
         }
     }, [searchParams]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "ArrowDown" && event.shiftKey) {
+                setSide((side === "Aff" ? "Neg" : "Aff"));
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [side]);
+
     const title = searchParams.get('title');
     if (!title) { return; }
 
     const onBlur = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         const index = parseInt(event.target.id);
-        speeches[index] = value;
+        if (currentSide() === flowStructure.sides[0]) {
+            speeches.Aff[index] = value;
+        } else {
+            speeches.Neg[index] = value;
+        }
         localStorage.setItem(`title=${title}`, JSON.stringify(speeches));
 
     }
+
+    const changeSide = () => {
+        setSide((side === "Aff" ? "Neg" : "Aff"));
+        // change the speeches to the other side
+    }
+
+    function currentSide() {
+        return side === "Aff" ? flowStructure.sides[0] : flowStructure.sides[1];
+    }
+
     return (
         <div>
             <div className={"flex flex-row"}>
         {title && <p className={"text-white ml-6"}
         >Type: {title}</p>}
-        <p className={"text-white ml-6"}>Side: {flowStructure.sides[0]}</p>
+        <p className={"text-white ml-6 cursor-pointer select-none"}
+        onClick={changeSide}>
+            Side: {side}
+        </p>
             </div>
         <div className={"flex flex-col h-[calc(100vh)] items-center"}>
             <div className={"flex flex-row h-[calc(93vh)]"}>
-            {flowStructure.speechNames.map((speechName, index) => {
-                let style = index % 2 === 0 ?
+            {side === "Aff" ? flowStructure.speechNames.map((speechName, index) => {
+                let style = index % 2 === 1 ?
                     "h-full w-44 bg-red-300 text-black p-1 overflow-auto resize-none":
                     "h-full w-44 bg-blue-300 text-black p-1 overflow-auto resize-none";
                 if (index === 0) {
@@ -56,12 +99,32 @@ export default function FlowPage() {
                     <div key={index}>
                         <p className={"text-white text-center select-none"}>{speechName}</p>
                         <textarea className={style}
-                        defaultValue={speeches[index]}
+                        defaultValue={speeches.Aff[index]}
                         onBlur={onBlur}
                         id={index.toString()}/>
                     </div>
                 );
-            })}
+            }):
+                flowStructure.speechNames.slice(1).map((speechName, index) => {
+                    let style = index % 2 === 0 ?
+                        "h-full w-44 bg-red-300 text-black p-1 overflow-auto resize-none":
+                        "h-full w-44 bg-blue-300 text-black p-1 overflow-auto resize-none";
+                    if (index === 0) {
+                        style += " rounded-l-md";
+                    } else if (index === flowStructure.speechNames.length-2) {
+                        style += " rounded-r-md";
+                    }
+                    return (
+                        <div key={index+10}>
+                            <p className={"text-white text-center select-none"}>{speechName}</p>
+                            <textarea className={style}
+                            defaultValue={speeches.Neg[index]}
+                            onBlur={onBlur}
+                            id={index.toString()}/>
+                        </div>
+                    );
+                })
+            }
             </div>
         </div>
         </div>
