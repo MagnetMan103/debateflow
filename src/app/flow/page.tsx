@@ -11,9 +11,10 @@ type FlowStructure = {
     sides: string[],
 }
 
-type speechStructure = {
+export type speechStructure = {
     Aff: string[],
     Neg: string[],
+    Title: string,
 }
 
 const redStyle = "h-full w-44 bg-red-300 text-black p-1 overflow-auto resize-none";
@@ -25,7 +26,8 @@ export default function FlowPage() {
         getFlowStructure(getStringUpToCharacter(searchParams.get('title')!, "_")));
     const [speeches, setSpeeches] = useState<speechStructure>(
         {Aff: new Array<string>(flowStructure.speeches).fill(""),
-            Neg: new Array<string>(flowStructure.speeches).fill("")}
+            Neg: new Array<string>(flowStructure.speeches).fill(""),
+            Title: ""}
     );
     const [side, setSide] = useState<string>("Aff");
 
@@ -56,6 +58,7 @@ export default function FlowPage() {
 
     const onBlur = () => {
         localStorage.setItem(`title=${title}`, JSON.stringify(speeches));
+        console.log(speeches)
     }
 
     const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -80,8 +83,10 @@ export default function FlowPage() {
     return (
         <div>
             <div className={"flex flex-row"}>
-        {title && <p className={"text-white ml-6"}
-        >Type: {title}</p>}
+                <p className={"text-white ml-6"}>Type: {title}</p>
+                <input defaultValue={speeches.Title} placeholder={"Enter Title"} className={"bg-gray-600 text-white ml-6"}
+                       onBlur = {(e) => { speeches.Title = e.target.value; onBlur(); }}
+                ></input>
         <p className={"text-white ml-6 cursor-pointer select-none"}
         onClick={changeSide}>
             Side: {side}
