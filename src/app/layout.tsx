@@ -1,5 +1,5 @@
 import "~/styles/globals.css";
-
+import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import {Suspense} from "react";
@@ -21,6 +21,7 @@ export default function RootLayout({
       <Suspense>
       {children}
       </Suspense>
+      <Analytics/>
       </body>
     </html>
   );
