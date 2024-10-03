@@ -16,10 +16,8 @@ type speechStructure = {
     Neg: string[],
 }
 
-// the idea is to change set speeches to switch pro/con
-// need a new json object with each side
-// TODO: set maxlength to textarea components
-// TODO: add a delete button
+const redStyle = "h-full w-44 bg-red-300 text-black p-1 overflow-auto resize-none";
+const blueStyle = "h-full w-44 bg-blue-300 text-black p-1 overflow-auto resize-none";
 
 export default function FlowPage() {
     const searchParams = useSearchParams();
@@ -92,9 +90,7 @@ export default function FlowPage() {
         <div className={"flex flex-col h-[calc(100vh)] items-center"}>
             <div className={"flex flex-row h-[calc(93vh)]"}>
             {side === "Aff" ? flowStructure.speechNames.map((speechName, index) => {
-                let style = index % 2 === 1 ?
-                    "h-full w-44 bg-red-300 text-black p-1 overflow-auto resize-none":
-                    "h-full w-44 bg-blue-300 text-black p-1 overflow-auto resize-none";
+                let style = index % 2 === 1 ? redStyle: blueStyle;
                 if (index === 0) {
                     style += " rounded-l-md";
                 } else if (index === flowStructure.speechNames.length-1) {
@@ -107,14 +103,13 @@ export default function FlowPage() {
                         defaultValue={speeches.Aff[index]}
                         onBlur={onBlur}
                         onChange={onChange}
-                        id={index.toString()}/>
+                        id={index.toString()}
+                        maxLength={2000}/>
                     </div>
                 );
             }):
                 flowStructure.speechNames.slice(1).map((speechName, index) => {
-                    let style = index % 2 === 0 ?
-                        "h-full w-44 bg-red-300 text-black p-1 overflow-auto resize-none":
-                        "h-full w-44 bg-blue-300 text-black p-1 overflow-auto resize-none";
+                    let style = index % 2 === 0 ? redStyle: blueStyle;
                     if (index === 0) {
                         style += " rounded-l-md";
                     } else if (index === flowStructure.speechNames.length-2) {
@@ -127,7 +122,8 @@ export default function FlowPage() {
                             defaultValue={speeches.Neg[index]}
                             onBlur={onBlur}
                             onChange={onChange}
-                            id={index.toString()}/>
+                            id={index.toString()}
+                            maxLength={2000}/>
                         </div>
                     );
                 })

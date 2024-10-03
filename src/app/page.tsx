@@ -9,12 +9,7 @@ export default function HomePage() {
     const [items, setItems] = useState<string[]>([]);
     useEffect(() => {
         setItems(getAllLocalStorageKeys());
-        // what you need to do is get all the keys
-        // create a new component that routes to the proper page
-        // based on the key
-        // and then you're done with the project
     }, []);
-    // add a button that links to the settings route /settings
   return (
       <div className={""}>
           <p className={"text-2xl font-normal text-gray-200 p-4"}>
@@ -31,7 +26,7 @@ export default function HomePage() {
           {items.map((item, index) => {
                 return (
                     <div key={index}>
-                        <FlowPreview title={item}/>
+                        <FlowPreview title={item} setItems={setItems}/>
                     </div>
                 );
           })}
