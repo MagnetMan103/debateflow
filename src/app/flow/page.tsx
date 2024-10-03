@@ -83,7 +83,7 @@ export default function FlowPage() {
     return (
         <div>
             <div className={"flex flex-row"}>
-                <p className={"text-white ml-6"}>Type: {title}</p>
+                <p className={"text-white ml-6"}>Type: {title.substring(0, title.indexOf("_"))}</p>
                 <input defaultValue={speeches.Title} placeholder={"Enter Title"} className={"bg-gray-600 text-white ml-6"}
                        onBlur = {(e) => { speeches.Title = e.target.value; onBlur(); }}
                 ></input>
