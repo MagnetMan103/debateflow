@@ -20,8 +20,8 @@ export default function RootLayout({
       <TopNav />
       <Suspense>
       {children}
-      </Suspense>
       <Analytics/>
+      </Suspense>
       </body>
     </html>
   );
