@@ -10,7 +10,7 @@ export default function TopNav() {
                     <p>Flow</p></a>
             </div>
             <div>
-                <a href="/settings">Settings</a>
+                <a href="/about">About</a>
             </div>
         </nav>
     );
