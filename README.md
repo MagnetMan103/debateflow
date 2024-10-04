@@ -1,29 +1,28 @@
-# Create T3 App
+# Debate Flow App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Usage
+https://debateflow.vercel.app/
 
-## What's next? How do I make an app with this?
+## About
+I made this website after judging debate tournaments for a couple years and
+realized it was very annoying to keep track of my flows. I also wanted a better
+way to make flows and be able to transition to the aff/neg flow quickly. On the flow page,
+I added a shortcut (shift + down arrow) that changes the side of the flow you are on
+to make it possible to flow with just your keyboard.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Some features I still want to add include being able to share flows, being able to
+collaborate on the same flow, and more settings for preferences in terms of text size,
+or adding your own custom flow presets.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Current Features
+* Make a flow with an aff and neg side
+* Store flows to look back on later
+* Supporting British Parliamentary, Lincoln Douglas, and Public Forum flows
+* Name flows to keep track of your roumds
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Images
+<img width="1217" alt="Screenshot 2024-10-04 at 6 47 40 PM" src="https://github.com/user-attachments/assets/b48c8bc0-d4a6-4663-a5dc-af22a7ca653e">
 
-## Learn More
+<img width="1210" alt="Screenshot 2024-10-04 at 6 52 07 PM" src="https://github.com/user-attachments/assets/f20ddd41-ea74-4a8b-868c-335f2a77f3b5">
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+<img width="1207" alt="Screenshot 2024-10-04 at 6 54 35 PM" src="https://github.com/user-attachments/assets/bd7d0908-89ad-43dd-a356-45b4c9b44b48">
