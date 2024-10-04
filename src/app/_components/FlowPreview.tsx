@@ -9,7 +9,7 @@ export default function FlowPreview(props: {title: string, name: string, setItem
     }
     return (
         <div>
-        <div className={"relative h-40 w-40 m-4 text-wrap"}>
+        <div className={"relative h-40 w-40 m-4 text-wrap break-words"}>
             <div className={"h-40 w-40 bg-green-200 border border-black flex" +
                 "items-center justify-center " +
                 "cursor-pointer hover:opacity-70 m-0 rounded-lg"}
